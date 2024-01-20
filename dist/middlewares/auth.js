@@ -39,7 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isAdmin = void 0;
+exports.getUserFromToken = exports.isAdmin = void 0;
 var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var user_1 = __importDefault(require("../models/user"));
 var dotenv_1 = __importDefault(require("dotenv"));
@@ -58,10 +58,7 @@ function isAdmin(req, res, next) {
                     token = authHeader.split(" ")[1];
                     if (!token)
                         throw new Error("No token provided");
-                    console.log("Token for debugging:", token); // Debug log
-                    console.log("Secret for debugging:", JWT_SECRET); // Debug log
                     decodedToken = jsonwebtoken_1.default.verify(token, JWT_SECRET);
-                    console.log("decodedToken", decodedToken);
                     return [4 /*yield*/, user_1.default.findById(decodedToken.userId, { password: 0 })];
                 case 1:
                     user = _a.sent();
@@ -78,3 +75,29 @@ function isAdmin(req, res, next) {
     });
 }
 exports.isAdmin = isAdmin;
+function getUserFromToken(req, res, next) {
+    var _a;
+    return __awaiter(this, void 0, void 0, function () {
+        var token, decodedToken, user, error_2;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    _b.trys.push([0, 2, , 3]);
+                    token = (_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(" ")[1];
+                    if (!token)
+                        throw new Error("No token provided");
+                    decodedToken = jsonwebtoken_1.default.verify(token, JWT_SECRET);
+                    return [4 /*yield*/, user_1.default.findById(decodedToken.userId, { password: 0 })];
+                case 1:
+                    user = _b.sent();
+                    req.userJSON = user;
+                    return [2 /*return*/, next()];
+                case 2:
+                    error_2 = _b.sent();
+                    throw new Error("Failed to get user from token");
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.getUserFromToken = getUserFromToken;
