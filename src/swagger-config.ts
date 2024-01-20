@@ -4,16 +4,16 @@ const swaggerOptions = {
   swaggerDefinition: {
     openapi: "3.0.0",
     info: {
-      title: "Trend Vortex API",
+      title: "Pawtopia API",
       version: "1.0.0",
-      description: "Trend Vortex API",
+      description: "Pawtopia API",
       contact: {
         name: "Burcu İçen",
       },
     },
     servers: [
       {
-        url:'localhost:8080',
+        url:'http://localhost:8080/',
       },
     ],
     components: {
