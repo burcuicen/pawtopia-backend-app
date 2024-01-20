@@ -1,12 +1,13 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 
 import AuthService from "../services/auth";
+import { IRequest } from "../interfaces/base";
 
 class AuthController {
-  public static async register(req: Request, res: Response): Promise<void> {
+  public static async register(req: IRequest, res: Response): Promise<void> {
     try {
-      const { username, password, email, firstName, lastName, userType, surveyResults, country, city } = req.body;
-      const user = await AuthService.register({username, password, email, firstName, lastName, userType, surveyResults, country, city});
+      const { username, password, email, firstName, lastName, userType, surveyResults, country, city } = req.body
+      const user = await AuthService.register({username, password, email, firstName, lastName, userType, surveyResults, country, city})
 
       res.status(201).json(user);
       
@@ -15,7 +16,7 @@ class AuthController {
     }
   }
 
-  public static async login(req: Request, res: Response): Promise<void> {
+  public static async login(req: IRequest, res: Response): Promise<void> {
     try {
       const { username, password } = req.body;
 
@@ -28,7 +29,7 @@ class AuthController {
     }
   }
 
-  public static async getUser(req: Request, res: Response): Promise<void> {
+  public static async getUser(req: IRequest, res: Response): Promise<void> {
     try {
       const user = await AuthService.getUserFromToken(req);
 

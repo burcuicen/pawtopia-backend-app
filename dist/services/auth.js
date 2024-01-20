@@ -42,15 +42,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var bcrypt_1 = __importDefault(require("bcrypt"));
 var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var user_1 = __importDefault(require("../models/user"));
+var dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 var SALT_ROUNDS = 10;
-var JWT_SECRET = process.env.SECRET_KEY || "change";
+var JWT_SECRET = process.env.JWT_SECRET;
 var AuthService = /** @class */ (function () {
     function AuthService() {
     }
     AuthService.register = function (_a) {
         var username = _a.username, email = _a.email, password = _a.password, firstName = _a.firstName, lastName = _a.lastName, userType = _a.userType, surveyResults = _a.surveyResults, country = _a.country, city = _a.city;
         return __awaiter(this, void 0, void 0, function () {
-            var hashedPassword, error_1;
+            var hashedPassword, data, error_1;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -58,7 +60,9 @@ var AuthService = /** @class */ (function () {
                         return [4 /*yield*/, bcrypt_1.default.hash(password, SALT_ROUNDS)];
                     case 1:
                         hashedPassword = _b.sent();
-                        return [4 /*yield*/, user_1.default.create({ username: username, password: hashedPassword, email: email, firstName: firstName, lastName: lastName, userType: userType, surveyResults: surveyResults, country: country, city: city })];
+                        data = { username: username, password: hashedPassword, email: email, firstName: firstName, lastName: lastName, userType: userType, surveyResults: surveyResults, country: country, city: city };
+                        console.log(data);
+                        return [4 /*yield*/, user_1.default.create(data)];
                     case 2:
                         _b.sent();
                         return [3 /*break*/, 4];
@@ -109,7 +113,7 @@ var AuthService = /** @class */ (function () {
                         if (!token)
                             throw new Error("No token provided");
                         decodedToken = jsonwebtoken_1.default.verify(token, JWT_SECRET);
-                        return [4 /*yield*/, user_1.default.findById(decodedToken.userId)];
+                        return [4 /*yield*/, user_1.default.findById(decodedToken.userId, { password: 0 })];
                     case 1:
                         user = _b.sent();
                         if (!user)
