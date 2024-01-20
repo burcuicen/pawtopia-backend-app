@@ -7,7 +7,9 @@ import swaggerUi from "swagger-ui-express";
 const bodyParser = require("body-parser");
 
 import { swaggerDocs } from "./swagger-config";
-import authRoutes from "./routes/auth";
+import authRoutes from "./routes/auth"
+import userRoutes from "./routes/user"
+
 dotenv.config();
 
 const app = express();
@@ -39,7 +41,7 @@ if (mongodbUri) {
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use("/auth", authRoutes);
-
+app.use("/user", userRoutes);
 
 
 app.get("/", (req, res) => {
