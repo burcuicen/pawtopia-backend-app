@@ -52,7 +52,7 @@ var AuthService = /** @class */ (function () {
     AuthService.register = function (_a) {
         var username = _a.username, email = _a.email, password = _a.password, firstName = _a.firstName, lastName = _a.lastName, userType = _a.userType, surveyResults = _a.surveyResults, country = _a.country, city = _a.city;
         return __awaiter(this, void 0, void 0, function () {
-            var hashedPassword, data, error_1;
+            var hashedPassword, _userType, data, error_1;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -60,8 +60,8 @@ var AuthService = /** @class */ (function () {
                         return [4 /*yield*/, bcrypt_1.default.hash(password, SALT_ROUNDS)];
                     case 1:
                         hashedPassword = _b.sent();
-                        data = { username: username, password: hashedPassword, email: email, firstName: firstName, lastName: lastName, userType: userType, surveyResults: surveyResults, country: country, city: city };
-                        console.log(data);
+                        _userType = userType === 'paw-admin' ? 'other' : userType;
+                        data = { username: username, password: hashedPassword, email: email, firstName: firstName, lastName: lastName, userType: _userType, surveyResults: surveyResults, country: country, city: city };
                         return [4 /*yield*/, user_1.default.create(data)];
                     case 2:
                         _b.sent();
@@ -91,7 +91,7 @@ var AuthService = /** @class */ (function () {
                         isPasswordValid = _a.sent();
                         if (!isPasswordValid)
                             throw new Error("Invalid password");
-                        token = jsonwebtoken_1.default.sign({ userId: user._id }, JWT_SECRET, { expiresIn: "1h" });
+                        token = jsonwebtoken_1.default.sign({ userId: user._id }, JWT_SECRET, { expiresIn: "1d" });
                         return [2 /*return*/, token];
                     case 3:
                         error_2 = _a.sent();

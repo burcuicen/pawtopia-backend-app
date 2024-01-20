@@ -35,16 +35,82 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
+var utils_1 = require("../utils");
+var user_1 = __importDefault(require("../models/user"));
+var bcrypt_1 = __importDefault(require("bcrypt"));
+var SALT_ROUNDS = 10;
 var UserService = /** @class */ (function () {
     function UserService() {
     }
     UserService.getAll = function (queryParams) {
         return __awaiter(this, void 0, void 0, function () {
+            var queryObject, query, totalCount, items, data;
             return __generator(this, function (_a) {
-                //add skip limit text search sort and filter
-                return [2 /*return*/, null];
+                switch (_a.label) {
+                    case 0:
+                        queryObject = (0, utils_1.queryBuilder)(queryParams);
+                        query = user_1.default.find(queryObject.filter);
+                        return [4 /*yield*/, user_1.default.countDocuments(queryObject.filter)];
+                    case 1:
+                        totalCount = _a.sent();
+                        query = query.skip(queryObject.skip).limit(queryObject.limit).sort(queryObject.sort);
+                        return [4 /*yield*/, query.exec()];
+                    case 2:
+                        items = _a.sent();
+                        data = {
+                            items: items,
+                            metaData: {
+                                totalCount: totalCount
+                            }
+                        };
+                        return [2 /*return*/, data];
+                }
+            });
+        });
+    };
+    UserService.getById = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, user_1.default.findById(id, { password: 0 }).exec()];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    UserService.create = function (data) {
+        return __awaiter(this, void 0, void 0, function () {
+            var username, email, password, firstName, lastName, userType, surveyResults, country, city, hashedPassword, item;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        username = data.username, email = data.email, password = data.password, firstName = data.firstName, lastName = data.lastName, userType = data.userType, surveyResults = data.surveyResults, country = data.country, city = data.city;
+                        return [4 /*yield*/, bcrypt_1.default.hash(password, SALT_ROUNDS)];
+                    case 1:
+                        hashedPassword = _a.sent();
+                        item = { username: username, password: hashedPassword, email: email, firstName: firstName, lastName: lastName, userType: userType, surveyResults: surveyResults, country: country, city: city };
+                        return [4 /*yield*/, user_1.default.create(item)];
+                    case 2: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    UserService.update = function (id, data) {
+        return __awaiter(this, void 0, void 0, function () {
+            var username, email, firstName, lastName, userType, surveyResults, country, city, item;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        username = data.username, email = data.email, firstName = data.firstName, lastName = data.lastName, userType = data.userType, surveyResults = data.surveyResults, country = data.country, city = data.city;
+                        item = { username: username, email: email, firstName: firstName, lastName: lastName, userType: userType, surveyResults: surveyResults, country: country, city: city };
+                        return [4 /*yield*/, user_1.default.findByIdAndUpdate(id, item, { new: true }).exec()];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
             });
         });
     };

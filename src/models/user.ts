@@ -9,7 +9,7 @@ const UserSchema: Schema = new Schema({
     password: { type: String, required: true },
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
-    userType: { type: String, enum: ['paw-seeker', 'paw-guardian', 'other'] },
+    userType: { type: String, enum: ['paw-seeker', 'paw-guardian', 'other', 'paw-admin'] },
     surveyResults: {
         animalPreference: { type: String, enum: ['cat', 'dog', 'other', 'just-looking'] },
         ageRange: { type: String, enum: ['baby', 'adult', 'senior', 'doesnt-matter'] },

@@ -48,6 +48,7 @@ var UserController = /** @class */ (function () {
                 switch (_b.label) {
                     case 0:
                         _b.trys.push([0, 2, , 3]);
+                        console.log(req.userJSON);
                         _a = req.query, skip = _a.skip, limit = _a.limit, text = _a.text, sort = _a.sort, filter = _a.filter;
                         query = {
                             skip: skip,
@@ -64,6 +65,69 @@ var UserController = /** @class */ (function () {
                     case 2:
                         error_1 = _b.sent();
                         res.status(500).json({ message: error_1.message });
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    UserController.getById = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var user, error_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, user_1.UserService.getById(req.params.id)];
+                    case 1:
+                        user = _a.sent();
+                        res.status(200).json(user);
+                        return [3 /*break*/, 3];
+                    case 2:
+                        error_2 = _a.sent();
+                        res.status(500).json({ message: error_2.message });
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    UserController.create = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var user, error_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, user_1.UserService.create(req.body)];
+                    case 1:
+                        user = _a.sent();
+                        res.status(201).json(user);
+                        return [3 /*break*/, 3];
+                    case 2:
+                        error_3 = _a.sent();
+                        res.status(500).json({ message: error_3.message });
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    UserController.update = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var user, error_4;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, user_1.UserService.update(req.params.id, req.body)];
+                    case 1:
+                        user = _a.sent();
+                        res.status(200).json(user);
+                        return [3 /*break*/, 3];
+                    case 2:
+                        error_4 = _a.sent();
+                        res.status(500).json({ message: error_4.message });
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
                 }
