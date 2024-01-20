@@ -5,7 +5,6 @@ import { IQueryParams, IRequest } from "../interfaces/base";
 export  class UserController {
     public static async getAll(req: IRequest, res: Response): Promise<void> {
         try {
-            console.log(req.userJSON)
             const {skip, limit, text, sort, filter} = req.query
             const query = {
                 skip,
