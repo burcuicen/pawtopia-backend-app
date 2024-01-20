@@ -48,7 +48,6 @@ var UserController = /** @class */ (function () {
                 switch (_b.label) {
                     case 0:
                         _b.trys.push([0, 2, , 3]);
-                        console.log(req.userJSON);
                         _a = req.query, skip = _a.skip, limit = _a.limit, text = _a.text, sort = _a.sort, filter = _a.filter;
                         query = {
                             skip: skip,
