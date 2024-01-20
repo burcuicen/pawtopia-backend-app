@@ -7,7 +7,7 @@ import swaggerUi from "swagger-ui-express";
 const bodyParser = require("body-parser");
 
 import { swaggerDocs } from "./swagger-config";
-
+import authRoutes from "./routes/auth";
 dotenv.config();
 
 const app = express();
@@ -38,13 +38,15 @@ if (mongodbUri) {
 }
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use("/auth", authRoutes);
+
 
 
 app.get("/", (req, res) => {
   res.send("Pawtopia API");
 });
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log("Server is running");
 });
 

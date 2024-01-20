@@ -18,10 +18,7 @@ var swaggerOptions = {
         },
         servers: [
             {
-                url: 'https://trend-vortex-backend.azurewebsites.net',
-            },
-            {
-                url: 'localhost:3000',
+                url: 'localhost:8080',
             },
         ],
         components: {

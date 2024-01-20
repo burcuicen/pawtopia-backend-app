@@ -10,6 +10,7 @@ var mongoose_1 = __importDefault(require("mongoose"));
 var swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 var bodyParser = require("body-parser");
 var swagger_config_1 = require("./swagger-config");
+var auth_1 = __importDefault(require("./routes/auth"));
 dotenv_1.default.config();
 var app = (0, express_1.default)();
 app.use((0, cors_1.default)());
@@ -38,6 +39,7 @@ else {
     console.error("MONGODB_URI environment variable not defined");
 }
 app.use("/api-docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_config_1.swaggerDocs));
+app.use("/auth", auth_1.default);
 app.get("/", function (req, res) {
     res.send("Pawtopia API");
 });
