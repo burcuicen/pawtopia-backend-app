@@ -684,7 +684,7 @@ router.post("/", auth_1.getUserFromToken, listing_1.ListingController.create);
  *     security:
  *       - Bearer: []
  */
-router.put("/:id", auth_1.getUserFromToken, listing_1.ListingController.update);
+router.put("/:id", auth_1.isOwnerOfListing, auth_1.getUserFromToken, listing_1.ListingController.update);
 /**
  * @swagger
  * /listing/{id}:
@@ -705,7 +705,7 @@ router.put("/:id", auth_1.getUserFromToken, listing_1.ListingController.update);
  *     security:
  *       - Bearer: []
  */
-router.delete("/:id", auth_1.getUserFromToken, listing_1.ListingController.delete);
+router.delete("/:id", auth_1.isOwnerOfListing, auth_1.getUserFromToken, listing_1.ListingController.delete);
 /**
  * @swagger
  * /listing/{id}/approve:

@@ -17,11 +17,11 @@ export class ListingService {
 
         let query = Listing.find(queryObject.filter)
 
-        const totalCount = await Listing.countDocuments(queryObject.filter)
-
         query = query.skip(queryObject.skip).limit(queryObject.limit).sort(queryObject.sort)
 
         const items = await query.exec()
+        const totalCount = await Listing.countDocuments(queryObject.filter)
+
 
         const data = {
             items,
@@ -37,13 +37,13 @@ export class ListingService {
 
         let query = Listing.find(queryObject.filter)
 
-        const totalCount = await Listing.countDocuments(queryObject.filter)
-
         query = query.skip(queryObject.skip).limit(queryObject.limit).sort(queryObject.sort)
         //only return isApproved listings
         query = query.find({ isApproved: true })
 
         const items = await query.exec()
+        const totalCount = await Listing.countDocuments(queryObject.filter)
+
 
         const data = {
             items,
@@ -59,13 +59,13 @@ export class ListingService {
 
         let query = Listing.find(queryObject.filter)
 
-        const totalCount = await Listing.countDocuments(queryObject.filter)
-
         query = query.skip(queryObject.skip).limit(queryObject.limit).sort(queryObject.sort)
-        
+        //only return listings created by user
         query = query.find({ createdBy: id })
 
         const items = await query.exec()
+        const totalCount = await Listing.countDocuments(queryObject.filter)
+
 
         const data = {
             items,

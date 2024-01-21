@@ -1,6 +1,6 @@
 import express from "express"
 import { ListingController } from "../controllers/listing"
-import { isAdmin, getUserFromToken } from "../middlewares/auth";
+import { isAdmin, isOwnerOfListing, getUserFromToken } from "../middlewares/auth";
 
 const router = express.Router()
 
@@ -683,7 +683,7 @@ router.post("/", getUserFromToken, ListingController.create);
  *     security:
  *       - Bearer: []
  */
-router.put("/:id", getUserFromToken, ListingController.update);
+router.put("/:id", isOwnerOfListing, getUserFromToken, ListingController.update);
 
 /**
  * @swagger
@@ -705,7 +705,7 @@ router.put("/:id", getUserFromToken, ListingController.update);
  *     security:
  *       - Bearer: []
  */
-router.delete("/:id", getUserFromToken, ListingController.delete);
+router.delete("/:id", isOwnerOfListing, getUserFromToken, ListingController.delete);
 
 /**
  * @swagger
