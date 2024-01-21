@@ -39,10 +39,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUserFromToken = exports.isAdmin = void 0;
+exports.isOwnerOfListing = exports.getUserFromToken = exports.isAdmin = void 0;
 var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var user_1 = __importDefault(require("../models/user"));
 var dotenv_1 = __importDefault(require("dotenv"));
+var listing_1 = __importDefault(require("../models/listing"));
 dotenv_1.default.config();
 var JWT_SECRET = process.env.JWT_SECRET;
 function isAdmin(req, res, next) {
@@ -94,10 +95,44 @@ function getUserFromToken(req, res, next) {
                     return [2 /*return*/, next()];
                 case 2:
                     error_2 = _b.sent();
-                    throw new Error("Failed to get user from token");
+                    res.status(401).json({ message: error_2.message });
+                    return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }
         });
     });
 }
 exports.getUserFromToken = getUserFromToken;
+function isOwnerOfListing(req, res, next) {
+    var _a;
+    return __awaiter(this, void 0, void 0, function () {
+        var token, decodedToken, user, listing, error_3;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    _b.trys.push([0, 3, , 4]);
+                    token = (_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(" ")[1];
+                    if (!token)
+                        throw new Error("No token provided");
+                    decodedToken = jsonwebtoken_1.default.verify(token, JWT_SECRET);
+                    return [4 /*yield*/, user_1.default.findById(decodedToken.userId, { password: 0 })];
+                case 1:
+                    user = _b.sent();
+                    return [4 /*yield*/, listing_1.default.findById(req.params.id)];
+                case 2:
+                    listing = _b.sent();
+                    if ((user === null || user === void 0 ? void 0 : user.userType) === 'paw-admin')
+                        return [2 /*return*/, next()];
+                    if ((user === null || user === void 0 ? void 0 : user._id.toString()) != (listing === null || listing === void 0 ? void 0 : listing.createdBy.toString()))
+                        throw new Error("Not the owner of this listing");
+                    return [2 /*return*/, next()];
+                case 3:
+                    error_3 = _b.sent();
+                    res.status(401).json({ message: error_3.message });
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.isOwnerOfListing = isOwnerOfListing;

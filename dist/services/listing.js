@@ -47,19 +47,19 @@ var ListingService = /** @class */ (function () {
     }
     ListingService.getAll = function (queryParams) {
         return __awaiter(this, void 0, void 0, function () {
-            var queryObject, query, totalCount, items, data;
+            var queryObject, query, items, totalCount, data;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         queryObject = (0, utils_1.queryBuilder)(queryParams);
                         query = listing_1.default.find(queryObject.filter);
-                        return [4 /*yield*/, listing_1.default.countDocuments(queryObject.filter)];
-                    case 1:
-                        totalCount = _a.sent();
                         query = query.skip(queryObject.skip).limit(queryObject.limit).sort(queryObject.sort);
                         return [4 /*yield*/, query.exec()];
-                    case 2:
+                    case 1:
                         items = _a.sent();
+                        return [4 /*yield*/, listing_1.default.countDocuments(queryObject.filter)];
+                    case 2:
+                        totalCount = _a.sent();
                         data = {
                             items: items,
                             metaData: {
@@ -73,21 +73,21 @@ var ListingService = /** @class */ (function () {
     };
     ListingService.search = function (queryParams) {
         return __awaiter(this, void 0, void 0, function () {
-            var queryObject, query, totalCount, items, data;
+            var queryObject, query, items, totalCount, data;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         queryObject = (0, utils_1.queryBuilder)(queryParams);
                         query = listing_1.default.find(queryObject.filter);
-                        return [4 /*yield*/, listing_1.default.countDocuments(queryObject.filter)];
-                    case 1:
-                        totalCount = _a.sent();
                         query = query.skip(queryObject.skip).limit(queryObject.limit).sort(queryObject.sort);
                         //only return isApproved listings
                         query = query.find({ isApproved: true });
                         return [4 /*yield*/, query.exec()];
-                    case 2:
+                    case 1:
                         items = _a.sent();
+                        return [4 /*yield*/, listing_1.default.countDocuments(queryObject.filter)];
+                    case 2:
+                        totalCount = _a.sent();
                         data = {
                             items: items,
                             metaData: {
@@ -101,20 +101,21 @@ var ListingService = /** @class */ (function () {
     };
     ListingService.getUsersListings = function (queryParams, id) {
         return __awaiter(this, void 0, void 0, function () {
-            var queryObject, query, totalCount, items, data;
+            var queryObject, query, items, totalCount, data;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         queryObject = (0, utils_1.queryBuilder)(queryParams);
                         query = listing_1.default.find(queryObject.filter);
-                        return [4 /*yield*/, listing_1.default.countDocuments(queryObject.filter)];
-                    case 1:
-                        totalCount = _a.sent();
                         query = query.skip(queryObject.skip).limit(queryObject.limit).sort(queryObject.sort);
+                        //only return listings created by user
                         query = query.find({ createdBy: id });
                         return [4 /*yield*/, query.exec()];
-                    case 2:
+                    case 1:
                         items = _a.sent();
+                        return [4 /*yield*/, listing_1.default.countDocuments(queryObject.filter)];
+                    case 2:
+                        totalCount = _a.sent();
                         data = {
                             items: items,
                             metaData: {
