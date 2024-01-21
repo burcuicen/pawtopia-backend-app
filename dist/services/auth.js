@@ -52,7 +52,7 @@ var AuthService = /** @class */ (function () {
     AuthService.register = function (_a) {
         var username = _a.username, email = _a.email, password = _a.password, firstName = _a.firstName, lastName = _a.lastName, userType = _a.userType, surveyResults = _a.surveyResults, country = _a.country, city = _a.city;
         return __awaiter(this, void 0, void 0, function () {
-            var hashedPassword, _userType, data, error_1;
+            var hashedPassword, _userType, purpose, data, error_1;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -61,6 +61,12 @@ var AuthService = /** @class */ (function () {
                     case 1:
                         hashedPassword = _b.sent();
                         _userType = userType === 'paw-admin' ? 'other' : userType;
+                        purpose = (surveyResults || {}).purpose;
+                        if (!userType)
+                            purpose === 'looking-guardian' ?
+                                _userType = 'paw-guardian'
+                                : purpose === 'looking-pet' ? _userType = 'paw-seeker'
+                                    : _userType = 'other';
                         data = { username: username, password: hashedPassword, email: email, firstName: firstName, lastName: lastName, userType: _userType, surveyResults: surveyResults, country: country, city: city };
                         return [4 /*yield*/, user_1.default.create(data)];
                     case 2:

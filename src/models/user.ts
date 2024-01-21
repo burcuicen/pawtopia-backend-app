@@ -11,6 +11,7 @@ const UserSchema: Schema = new Schema({
     lastName: { type: String, required: true },
     userType: { type: String, enum: ['paw-seeker', 'paw-guardian', 'other', 'paw-admin'] },
     surveyResults: {
+        purpose: { type: String, enum: ['looking-pet', 'looking-guardian', 'other'] },
         animalPreference: { type: String, enum: ['cat', 'dog', 'other', 'just-looking'] },
         ageRange: { type: String, enum: ['baby', 'adult', 'senior', 'doesnt-matter'] },
         genderPreference: { type: String, enum: ['male', 'female', 'doesnt-matter'] },

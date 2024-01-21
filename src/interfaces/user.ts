@@ -1,6 +1,7 @@
 import type { Document } from "mongoose";
 
 interface ISurveyResult {
+    purpose?: 'looking-pet' | 'looking-guardian' | 'other'
     animalPreference?: 'cat'| 'dog'| 'other'| 'just-looking'
     ageRange?: 'baby' | 'adult' | 'senior' | 'doesnt-matter'
     genderPreference?: 'male' | 'female' | 'doesnt-matter'

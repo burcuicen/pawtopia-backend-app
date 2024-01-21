@@ -36,9 +36,19 @@ class AuthService {
   }) {
     try {
       const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS)
-      const _userType = userType === 'paw-admin' ? 'other' : userType
+      let _userType = userType === 'paw-admin' ? 'other' : userType
+
+      const { purpose } = surveyResults || {}
+       
+      if (!userType) purpose === 'looking-guardian' ?
+       _userType = 'paw-guardian' 
+       : purpose === 'looking-pet' ? _userType = 'paw-seeker' 
+       : _userType = 'other'
+      
       const data = { username, password: hashedPassword, email, firstName, lastName, userType: _userType, surveyResults, country, city }
+      
       await UserModel.create(data)
+    
     } catch (error) {
       throw new Error("Failed to register user");
     }
