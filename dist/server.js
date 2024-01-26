@@ -13,6 +13,7 @@ var swagger_config_1 = require("./swagger-config");
 var auth_1 = __importDefault(require("./routes/auth"));
 var user_1 = __importDefault(require("./routes/user"));
 var listing_1 = __importDefault(require("./routes/listing"));
+var image_1 = __importDefault(require("./routes/image"));
 dotenv_1.default.config();
 var app = (0, express_1.default)();
 app.use((0, cors_1.default)());
@@ -44,6 +45,7 @@ app.use("/api-docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.de
 app.use("/auth", auth_1.default);
 app.use("/user", user_1.default);
 app.use("/listing", listing_1.default);
+app.use("/image", image_1.default);
 app.get("/", function (req, res) {
     res.send("Pawtopia API");
 });
