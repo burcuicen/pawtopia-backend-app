@@ -15,6 +15,9 @@ const swaggerOptions = {
       {
         url:'http://localhost:8080/',
       },
+      {
+        url: 'https://pawtopia-gkii.onrender.com/'
+      }
     ],
     components: {
       securitySchemes: {
