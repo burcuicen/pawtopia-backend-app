@@ -10,6 +10,7 @@ import { swaggerDocs } from "./swagger-config";
 import authRoutes from "./routes/auth"
 import userRoutes from "./routes/user"
 import listingRoutes from "./routes/listing"
+import imageRoutes from "./routes/image"
 
 dotenv.config();
 
@@ -44,6 +45,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
 app.use("/listing", listingRoutes);
+app.use("/image", imageRoutes);
 
 
 app.get("/", (req, res) => {
