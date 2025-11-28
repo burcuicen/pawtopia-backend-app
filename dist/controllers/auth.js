@@ -45,20 +45,32 @@ var AuthController = /** @class */ (function () {
     }
     AuthController.register = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, username, password, email, firstName, lastName, userType, surveyResults, country, city, user, error_1;
+            var _a, username, password, email, firstName, lastName, userType, surveyResults, country, city, user, error_1, field;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
                         _b.trys.push([0, 2, , 3]);
                         _a = req.body, username = _a.username, password = _a.password, email = _a.email, firstName = _a.firstName, lastName = _a.lastName, userType = _a.userType, surveyResults = _a.surveyResults, country = _a.country, city = _a.city;
+                        // Validation
+                        if (!username || !password || !email || !firstName || !lastName) {
+                            res.status(400).json({ message: 'Missing required fields: username, password, email, firstName, lastName' });
+                            return [2 /*return*/];
+                        }
                         return [4 /*yield*/, auth_1.default.register({ username: username, password: password, email: email, firstName: firstName, lastName: lastName, userType: userType, surveyResults: surveyResults, country: country, city: city })];
                     case 1:
                         user = _b.sent();
-                        res.status(201).json(user);
+                        res.status(201).json({ message: 'User registered successfully', user: user });
                         return [3 /*break*/, 3];
                     case 2:
                         error_1 = _b.sent();
-                        res.status(500).json({ message: error_1.message });
+                        console.error('Registration error:', error_1);
+                        // Handle duplicate key error (user already exists)
+                        if (error_1.code === 11000) {
+                            field = Object.keys(error_1.keyPattern)[0];
+                            res.status(409).json({ message: "".concat(field, " already exists") });
+                            return [2 /*return*/];
+                        }
+                        res.status(500).json({ message: error_1.message || 'Failed to register user' });
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
                 }
