@@ -3,12 +3,11 @@ import jwt from "jsonwebtoken";
 
 import UserModel from "../models/user";
 import type { ISurveyResult, IUser } from "../interfaces/user";
-import dotenv from "dotenv";
 import { IRequest } from "../interfaces/base";
-dotenv.config()
+import { config } from "../config/environment";
 
 const SALT_ROUNDS = 10;
-const JWT_SECRET = process.env.JWT_SECRET as string
+const JWT_SECRET = config.JWT_SECRET;
 
 
 class AuthService {
@@ -40,10 +39,15 @@ class AuthService {
 
       const { purpose } = surveyResults || {}
        
-      if (!userType) purpose === 'looking-guardian' ?
-       _userType = 'paw-guardian' 
-       : purpose === 'looking-pet' ? _userType = 'paw-seeker' 
-       : _userType = 'other'
+      if (!userType) {
+        if (purpose === 'looking-guardian') {
+          _userType = 'paw-guardian'
+        } else if (purpose === 'looking-pet') {
+          _userType = 'paw-seeker'
+        } else {
+          _userType = 'other'
+        }
+      }
       
       const data = { username, password: hashedPassword, email, firstName, lastName, userType: _userType, surveyResults, country, city }
       

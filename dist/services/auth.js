@@ -42,10 +42,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var bcrypt_1 = __importDefault(require("bcrypt"));
 var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var user_1 = __importDefault(require("../models/user"));
-var dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
+var environment_1 = require("../config/environment");
 var SALT_ROUNDS = 10;
-var JWT_SECRET = process.env.JWT_SECRET;
+var JWT_SECRET = environment_1.config.JWT_SECRET;
 var AuthService = /** @class */ (function () {
     function AuthService() {
     }
@@ -62,11 +61,17 @@ var AuthService = /** @class */ (function () {
                         hashedPassword = _b.sent();
                         _userType = userType === 'paw-admin' ? 'other' : userType;
                         purpose = (surveyResults || {}).purpose;
-                        if (!userType)
-                            purpose === 'looking-guardian' ?
-                                _userType = 'paw-guardian'
-                                : purpose === 'looking-pet' ? _userType = 'paw-seeker'
-                                    : _userType = 'other';
+                        if (!userType) {
+                            if (purpose === 'looking-guardian') {
+                                _userType = 'paw-guardian';
+                            }
+                            else if (purpose === 'looking-pet') {
+                                _userType = 'paw-seeker';
+                            }
+                            else {
+                                _userType = 'other';
+                            }
+                        }
                         data = { username: username, password: hashedPassword, email: email, firstName: firstName, lastName: lastName, userType: _userType, surveyResults: surveyResults, country: country, city: city };
                         return [4 /*yield*/, user_1.default.create(data)];
                     case 2:

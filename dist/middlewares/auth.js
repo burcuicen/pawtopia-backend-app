@@ -42,10 +42,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.isOwnerOfListing = exports.getUserFromToken = exports.isAdmin = void 0;
 var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var user_1 = __importDefault(require("../models/user"));
-var dotenv_1 = __importDefault(require("dotenv"));
 var listing_1 = __importDefault(require("../models/listing"));
-dotenv_1.default.config();
-var JWT_SECRET = process.env.JWT_SECRET;
+var environment_1 = require("../config/environment");
+var JWT_SECRET = environment_1.config.JWT_SECRET;
 function isAdmin(req, res, next) {
     return __awaiter(this, void 0, void 0, function () {
         var authHeader, token, decodedToken, user, error_1;

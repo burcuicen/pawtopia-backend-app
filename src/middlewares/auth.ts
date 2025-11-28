@@ -1,13 +1,12 @@
 import { Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import UserModel from "../models/user";
-import dotenv from "dotenv";
 import { IUser } from "../interfaces/user";
 import { IRequest } from "../interfaces/base";
 import ListingModel from "../models/listing";
-dotenv.config();
+import { config } from "../config/environment";
 
-const JWT_SECRET = process.env.JWT_SECRET as string;
+const JWT_SECRET = config.JWT_SECRET;
 
 export async function isAdmin(req: IRequest, res: Response, next: NextFunction) {
     try {
