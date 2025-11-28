@@ -20,6 +20,9 @@ var allowedOrigins = [
     'http://localhost:3001',
     'https://pawtopia.vercel.app',
     'https://pawtopia-web.vercel.app',
+    'https://pawtopia-web-app.vercel.app',
+    'https://pawtopia-frontend.vercel.app',
+    /https:\/\/pawtopia.*\.vercel\.app$/,
     /https:\/\/.*\.vercel\.app$/ // Allow all Vercel preview deployments
 ];
 app.use((0, cors_1.default)({

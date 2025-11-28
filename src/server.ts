@@ -19,6 +19,9 @@ const allowedOrigins = [
   'http://localhost:3001',
   'https://pawtopia.vercel.app',
   'https://pawtopia-web.vercel.app',
+  'https://pawtopia-web-app.vercel.app',
+  'https://pawtopia-frontend.vercel.app',
+  /https:\/\/pawtopia.*\.vercel\.app$/, // Allow all pawtopia Vercel deployments
   /https:\/\/.*\.vercel\.app$/ // Allow all Vercel preview deployments
 ];
 
