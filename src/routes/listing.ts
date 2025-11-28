@@ -139,7 +139,8 @@ const router = express.Router()
  *     security:
  *       - Bearer: []
  */
-router.get("/", isAdmin, getUserFromToken, ListingController.getAll)
+// Public endpoint - no auth required for browsing listings
+router.get("/", ListingController.getAll)
 /**
  * @swagger
  * /listing/search:
