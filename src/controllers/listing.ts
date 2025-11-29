@@ -94,4 +94,13 @@ export class ListingController {
                 res.status(500).json({ message: error.message });
             }
         }
+
+        public static async reject(req: IRequest, res: Response): Promise<void> {
+            try {
+                const listing = await ListingService.reject(req.params.id);
+                res.status(200).json(listing);
+            } catch (error: any) {
+                res.status(500).json({ message: error.message });
+            }
+        }
 }

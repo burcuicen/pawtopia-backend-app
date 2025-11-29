@@ -730,4 +730,26 @@ router.delete("/:id", isOwnerOfListing, getUserFromToken, ListingController.dele
  */
 router.put("/:id/approve", isAdmin, getUserFromToken, ListingController.approve);
 
+/**
+ * @swagger
+ * /listing/{id}/reject:
+ *   put:
+ *     summary: Rejects a listing
+ *     description: This endpoint rejects a listing, hiding it from the platform.
+ *     tags: [Listing]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Unique ID of the listing to reject
+ *     responses:
+ *       200:
+ *         description: Listing rejected successfully.
+ *     security:
+ *       - Bearer: []
+ */
+router.put("/:id/reject", isAdmin, getUserFromToken, ListingController.reject);
+
 export default router;

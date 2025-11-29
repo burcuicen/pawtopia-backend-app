@@ -35,7 +35,7 @@ class AuthService {
   }) {
     try {
       const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS)
-      let _userType = userType === 'paw-admin' ? 'other' : userType
+      let _userType = userType
 
       const { purpose } = surveyResults || {}
        
@@ -54,6 +54,7 @@ class AuthService {
       await UserModel.create(data)
     
     } catch (error) {
+      console.error("Register Error:", error);
       throw new Error("Failed to register user");
     }
   }
@@ -70,6 +71,7 @@ class AuthService {
       return token;
 
     } catch (error) {
+      console.error("Login Error:", error);
       throw new Error("Failed to login");
     }
   }

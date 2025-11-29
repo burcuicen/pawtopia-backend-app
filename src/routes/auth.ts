@@ -150,5 +150,4 @@ router.get("/profile", AuthController.getUser);
  */
 router.put("/profile", AuthController.updateProfile);
 
-
 export default router;

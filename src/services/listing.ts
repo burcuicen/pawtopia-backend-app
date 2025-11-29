@@ -102,4 +102,7 @@ export class ListingService {
     public static async approve(id: string): Promise<IListing | null> {
         return await Listing.findByIdAndUpdate(id, { isApproved: true }, { new: true }).exec()
     }
+    public static async reject(id: string): Promise<IListing | null> {
+        return await Listing.findByIdAndUpdate(id, { isApproved: false }, { new: true }).exec()
+    }
 }

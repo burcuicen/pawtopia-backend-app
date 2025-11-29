@@ -77,6 +77,9 @@ class AuthController {
       res.status(500).json({ message: error.message });
     }
   }
+
+  // ONE-TIME USE: Create admin user
+  // Removed for security
 }
 
 export default AuthController;
