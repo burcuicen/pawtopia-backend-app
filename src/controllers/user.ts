@@ -46,7 +46,7 @@ export  class UserController {
 
         public static async toggleFavorite(req: IRequest, res: Response): Promise<void> {
             try {
-                const userId = req.user?._id;
+                const userId = req.userJSON?._id;
                 const { listingId } = req.params;
                 if (!userId) {
                     res.status(401).json({ message: 'Unauthorized' });
@@ -61,7 +61,7 @@ export  class UserController {
 
         public static async getFavorites(req: IRequest, res: Response): Promise<void> {
             try {
-                const userId = req.user?._id;
+                const userId = req.userJSON?._id;
                 if (!userId) {
                     res.status(401).json({ message: 'Unauthorized' });
                     return;
