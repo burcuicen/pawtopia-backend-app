@@ -107,250 +107,154 @@ export class ListingService {
     }
 
     public static async seed(user: IUser): Promise<void> {
-        const MOCK_LISTINGS = [
+        const REAL_LISTINGS = [
             {
-              title: 'Playful Golden Retriever Puppy',
-              details: {
-                animalType: 'dog',
-                name: 'Buddy',
-                description: 'Buddy is a 3-month-old Golden Retriever who loves to play fetch and cuddle. He is very friendly with kids and other dogs.',
-                breed: 'Golden Retriever',
-                photos: ['https://images.unsplash.com/photo-1633722715463-d30f4f325e24?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
-                location: { country: 'Turkey', city: 'Istanbul' },
-                age: 'baby',
-                gender: 'male',
-                healthDetails: { isVaccinated: true, isNeutered: false, isDewormed: true, isHouseTrained: false, hasSpecialNeeds: false },
-                fromWhere: 'owner'
-              },
-              contactDetails: { email: 'mock@example.com', phone: '5551234567' }
+                title: 'Adopt Lucy',
+                details: {
+                    animalType: 'cat',
+                    name: 'Lucy',
+                    description: 'Lucy, adoptable Cat, Adult Female Domestic Short Hair, Fredericton, NB.',
+                    breed: 'Domestic Short Hair',
+                    photos: ['https://dbw3zep4prcju.cloudfront.net/animal/eab43f95-5019-4906-bbde-33979ac8beba/image/5c8a1bd0-cbb2-4656-be24-919f55db4041.jpg?versionId=vL2Fysvk3B9v1HLHGwlF._.n1T4XFtEs&bust=1763035549&width=300'],
+                    location: { country: 'Canada', city: 'Fredericton' },
+                    age: 'adult',
+                    gender: 'female',
+                    healthDetails: { isVaccinated: true, isNeutered: true, isDewormed: true, isHouseTrained: true, hasSpecialNeeds: false },
+                    fromWhere: 'shelter'
+                },
+                contactDetails: { email: 'adopt@petfinder.mock', phone: '555-0101' }
             },
             {
-              title: 'Calm Persian Cat',
-              details: {
-                animalType: 'cat',
-                name: 'Luna',
-                description: 'Luna is a beautiful Persian cat looking for a quiet home. She enjoys napping in sunny spots.',
-                breed: 'Persian',
-                photos: ['https://images.unsplash.com/photo-1617034238698-b8699b828130?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
-                location: { country: 'Turkey', city: 'Ankara' },
-                age: 'adult',
-                gender: 'female',
-                healthDetails: { isVaccinated: true, isNeutered: true, isDewormed: true, isHouseTrained: true, hasSpecialNeeds: false },
-                fromWhere: 'owner'
-              },
-              contactDetails: { email: 'mock@example.com', phone: '5559876543' }
+                title: 'Adopt LOLA & LIZZY',
+                details: {
+                    animalType: 'cat',
+                    name: 'LOLA & LIZZY',
+                    description: 'LOLA & LIZZY, adoptable Cat, Young Female Domestic Short Hair, Caribou, ME, Out-of-town pet.',
+                    breed: 'Domestic Short Hair',
+                    photos: ['https://dbw3zep4prcju.cloudfront.net/animal/6e8b5006-d2d8-417f-acf5-01d215322548/image/f4869c77-8401-4714-8b9d-baaf78e3b416.jpeg?versionId=36dsg3eoH5cMilyT_yOzYWCkBLhmeiRG&bust=1762654735&width=300'],
+                    location: { country: 'Canada', city: 'Caribou' },
+                    age: 'baby',
+                    gender: 'female',
+                    healthDetails: { isVaccinated: true, isNeutered: true, isDewormed: true, isHouseTrained: true, hasSpecialNeeds: false },
+                    fromWhere: 'shelter'
+                },
+                contactDetails: { email: 'adopt@petfinder.mock', phone: '555-0102' }
             },
             {
-              title: 'Energetic Husky Mix',
-              details: {
-                animalType: 'dog',
-                name: 'Max',
-                description: 'Max is full of energy and needs an active family. He loves running and hiking.',
-                breed: 'Husky Mix',
-                photos: ['https://images.unsplash.com/photo-1605568427561-40dd23d2acca?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
-                location: { country: 'Turkey', city: 'Izmir' },
-                age: 'adult',
-                gender: 'male',
-                healthDetails: { isVaccinated: true, isNeutered: true, isDewormed: true, isHouseTrained: true, hasSpecialNeeds: false },
-                fromWhere: 'shelter'
-              },
-              contactDetails: { email: 'mock@example.com', phone: '5551112233' }
+                title: 'Adopt Amelia',
+                details: {
+                    animalType: 'cat',
+                    name: 'Amelia',
+                    description: 'Amelia, adoptable Cat, Young Female Domestic Long Hair, Fredericton, NB.',
+                    breed: 'Domestic Long Hair',
+                    photos: ['https://dbw3zep4prcju.cloudfront.net/animal/63a9fcef-124d-48f8-a781-211cd827a3cf/image/0e700d01-9791-422e-ae13-d558a6fc92a2.jpg?versionId=BaOQrcaZwlaFFh223HENZqN6Ig5qOOEY&bust=1763341034&width=300'],
+                    location: { country: 'Canada', city: 'Fredericton' },
+                    age: 'baby',
+                    gender: 'female',
+                    healthDetails: { isVaccinated: true, isNeutered: true, isDewormed: true, isHouseTrained: true, hasSpecialNeeds: false },
+                    fromWhere: 'shelter'
+                },
+                contactDetails: { email: 'adopt@petfinder.mock', phone: '555-0103' }
             },
             {
-              title: 'Sweet Tabby Kitten',
-              details: {
-                animalType: 'cat',
-                name: 'Milo',
-                description: 'Milo is a curious little kitten who loves to explore. He is litter trained and very affectionate.',
-                breed: 'Tabby',
-                photos: ['https://images.unsplash.com/photo-1574158622682-e40e69881006?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
-                location: { country: 'Turkey', city: 'Bursa' },
-                age: 'baby',
-                gender: 'male',
-                healthDetails: { isVaccinated: true, isNeutered: false, isDewormed: true, isHouseTrained: true, hasSpecialNeeds: false },
-                fromWhere: 'stray'
-              },
-              contactDetails: { email: 'mock@example.com', phone: '5554445566' }
+                title: 'Adopt FRITO & PRINGLE',
+                details: {
+                    animalType: 'cat',
+                    name: 'FRITO & PRINGLE',
+                    description: 'FRITO & PRINGLE, adoptable Cat, Young Male Domestic Short Hair, Caribou, ME, Out-of-town pet.',
+                    breed: 'Domestic Short Hair',
+                    photos: ['https://dbw3zep4prcju.cloudfront.net/animal/d7d3b2e1-bdef-4b3a-b8e8-726cb5f74a07/image/d65c85b0-224b-4a64-9579-dcd58aaad988.jpeg?versionId=82PIoMthPYrOlmJt27OZw78lOm828LHF&bust=1762644330&width=300'],
+                    location: { country: 'Canada', city: 'Caribou' },
+                    age: 'baby',
+                    gender: 'male',
+                    healthDetails: { isVaccinated: true, isNeutered: true, isDewormed: true, isHouseTrained: true, hasSpecialNeeds: false },
+                    fromWhere: 'shelter'
+                },
+                contactDetails: { email: 'adopt@petfinder.mock', phone: '555-0104' }
             },
             {
-              title: 'Loyal German Shepherd',
-              details: {
-                animalType: 'dog',
-                name: 'Rex',
-                description: 'Rex is a loyal and protective companion. He is well-trained and good with commands.',
-                breed: 'German Shepherd',
-                photos: ['https://images.unsplash.com/photo-1589941013453-ec89f33b5e95?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
-                location: { country: 'Turkey', city: 'Antalya' },
-                age: 'adult',
-                gender: 'male',
-                healthDetails: { isVaccinated: true, isNeutered: true, isDewormed: true, isHouseTrained: true, hasSpecialNeeds: false },
-                fromWhere: 'owner'
-              },
-              contactDetails: { email: 'mock@example.com', phone: '5557778899' }
+                title: 'Adopt SUNSHINE, CLOUDY, & RAIN',
+                details: {
+                    animalType: 'cat',
+                    name: 'SUNSHINE, CLOUDY, & RAIN',
+                    description: 'SUNSHINE, CLOUDY, & RAIN, adoptable Cat, Young Female Domestic Short Hair, Caribou, ME, Out-of-town pet.',
+                    breed: 'Domestic Short Hair',
+                    photos: ['https://dbw3zep4prcju.cloudfront.net/animal/27003c51-324e-43b0-88e6-91f9d94cf491/image/7271071b-3dfa-424f-9a63-4b78f08730ad.jpg?versionId=NMQ4Pjou70qayieLQDk8j3Bp11zsQWo9&bust=1757374071&width=300'],
+                    location: { country: 'Canada', city: 'Caribou' },
+                    age: 'baby',
+                    gender: 'female',
+                    healthDetails: { isVaccinated: true, isNeutered: true, isDewormed: true, isHouseTrained: true, hasSpecialNeeds: false },
+                    fromWhere: 'shelter'
+                },
+                contactDetails: { email: 'adopt@petfinder.mock', phone: '555-0105' }
             },
             {
-              title: 'Fluffy Angora Rabbit',
-              details: {
-                animalType: 'other',
-                name: 'Snowball',
-                description: 'Snowball is a fluffy Angora rabbit. He needs regular grooming and a spacious cage.',
-                breed: 'Angora',
-                photos: ['https://images.unsplash.com/photo-1585110396067-c1d6d27b0a8d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
-                location: { country: 'Turkey', city: 'Istanbul' },
-                age: 'adult',
-                gender: 'male',
-                healthDetails: { isVaccinated: false, isNeutered: true, isDewormed: true, isHouseTrained: true, hasSpecialNeeds: false },
-                fromWhere: 'owner'
-              },
-              contactDetails: { email: 'mock@example.com', phone: '5550001122' }
+                title: 'Adopt Jessie',
+                details: {
+                    animalType: 'cat',
+                    name: 'Jessie',
+                    description: 'Jessie, adoptable Cat, Young Female Domestic Short Hair, Dsl De Drummond, NB.',
+                    breed: 'Domestic Short Hair',
+                    photos: ['https://dbw3zep4prcju.cloudfront.net/animal/d38f5680-a46e-41de-9d3a-3d2b5c8533b0/image/4b159958-12c4-49fe-ae0f-7a3bee13df51.jpg?versionId=P47uayM871Cdl8xbZDyqIlIq99uomY2x&bust=1763574598&width=300'],
+                    location: { country: 'Canada', city: 'Dsl De Drummond' },
+                    age: 'baby',
+                    gender: 'female',
+                    healthDetails: { isVaccinated: true, isNeutered: true, isDewormed: true, isHouseTrained: true, hasSpecialNeeds: false },
+                    fromWhere: 'shelter'
+                },
+                contactDetails: { email: 'adopt@petfinder.mock', phone: '555-0106' }
             },
             {
-              title: 'Rescue Beagle',
-              details: {
-                animalType: 'dog',
-                name: 'Bella',
-                description: 'Bella is a sweet Beagle rescued from a shelter. She is a bit shy but warms up quickly.',
-                breed: 'Beagle',
-                photos: ['https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
-                location: { country: 'Turkey', city: 'Ankara' },
-                age: 'senior',
-                gender: 'female',
-                healthDetails: { isVaccinated: true, isNeutered: true, isDewormed: true, isHouseTrained: true, hasSpecialNeeds: false },
-                fromWhere: 'shelter'
-              },
-              contactDetails: { email: 'mock@example.com', phone: '5553334455' }
+                title: 'Adopt Wordle',
+                details: {
+                    animalType: 'cat',
+                    name: 'Wordle',
+                    description: 'Wordle, adoptable Cat, Adult Male Domestic Short Hair, Florenceville, NB.',
+                    breed: 'Domestic Short Hair',
+                    photos: ['https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=800'], // Placeholder as original was empty
+                    location: { country: 'Canada', city: 'Florenceville' },
+                    age: 'adult',
+                    gender: 'male',
+                    healthDetails: { isVaccinated: true, isNeutered: true, isDewormed: true, isHouseTrained: true, hasSpecialNeeds: false },
+                    fromWhere: 'shelter'
+                },
+                contactDetails: { email: 'adopt@petfinder.mock', phone: '555-0107' }
             },
             {
-              title: 'Playful Siamese Cat',
-              details: {
-                animalType: 'cat',
-                name: 'Simba',
-                description: 'Simba is a vocal and active Siamese cat. He loves attention and playing with toys.',
-                breed: 'Siamese',
-                photos: ['https://images.unsplash.com/photo-1513245543132-31f507417b26?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
-                location: { country: 'Turkey', city: 'Izmir' },
-                age: 'baby',
-                gender: 'male',
-                healthDetails: { isVaccinated: true, isNeutered: true, isDewormed: true, isHouseTrained: true, hasSpecialNeeds: false },
-                fromWhere: 'owner'
-              },
-              contactDetails: { email: 'mock@example.com', phone: '5556667788' }
+                title: 'Adopt E-Girls',
+                details: {
+                    animalType: 'cat',
+                    name: 'E-Girls, Estella and Eleanor',
+                    description: 'E-Girls, Estella and Eleanor, adoptable Cat, Young Female Domestic Long Hair, Dartmouth, NS.',
+                    breed: 'Domestic Long Hair',
+                    photos: ['https://images.unsplash.com/photo-1573865526739-10c1d3a1b4cc?w=800'], // Placeholder
+                    location: { country: 'Canada', city: 'Dartmouth' },
+                    age: 'baby',
+                    gender: 'female',
+                    healthDetails: { isVaccinated: true, isNeutered: true, isDewormed: true, isHouseTrained: true, hasSpecialNeeds: false },
+                    fromWhere: 'shelter'
+                },
+                contactDetails: { email: 'adopt@petfinder.mock', phone: '555-0108' }
             },
             {
-              title: 'Cuddly French Bulldog',
-              details: {
-                animalType: 'dog',
-                name: 'Coco',
-                description: 'Coco is a cuddly French Bulldog who loves to sleep on laps. Great apartment dog.',
-                breed: 'French Bulldog',
-                photos: ['https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
-                location: { country: 'Turkey', city: 'Istanbul' },
-                age: 'adult',
-                gender: 'female',
-                healthDetails: { isVaccinated: true, isNeutered: true, isDewormed: true, isHouseTrained: true, hasSpecialNeeds: false },
-                fromWhere: 'owner'
-              },
-              contactDetails: { email: 'mock@example.com', phone: '5559990011' }
-            },
-            {
-              title: 'Charming Cockatiel',
-              details: {
-                animalType: 'other',
-                name: 'Sunny',
-                description: 'Sunny is a cheerful Cockatiel who can whistle a few tunes. Very social bird.',
-                breed: 'Cockatiel',
-                photos: ['https://images.unsplash.com/photo-1615087240969-eeff2fa558f2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
-                location: { country: 'Turkey', city: 'Bursa' },
-                age: 'baby',
-                gender: 'male',
-                healthDetails: { isVaccinated: false, isNeutered: false, isDewormed: false, isHouseTrained: false, hasSpecialNeeds: false },
-                fromWhere: 'owner'
-              },
-              contactDetails: { email: 'mock@example.com', phone: '5552223344' }
-            },
-            {
-              title: 'Gentle Labrador',
-              details: {
-                animalType: 'dog',
-                name: 'Daisy',
-                description: 'Daisy is a gentle giant. She loves swimming and is great with children.',
-                breed: 'Labrador Retriever',
-                photos: ['https://images.unsplash.com/photo-1591769225440-811ad7d6eca6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
-                location: { country: 'Turkey', city: 'Antalya' },
-                age: 'adult',
-                gender: 'female',
-                healthDetails: { isVaccinated: true, isNeutered: true, isDewormed: true, isHouseTrained: true, hasSpecialNeeds: false },
-                fromWhere: 'owner'
-              },
-              contactDetails: { email: 'mock@example.com', phone: '5555556677' }
-            },
-            {
-              title: 'Mysterious Black Cat',
-              details: {
-                animalType: 'cat',
-                name: 'Shadow',
-                description: 'Shadow is a sleek black cat with green eyes. He is independent but affectionate on his terms.',
-                breed: 'Domestic Shorthair',
-                photos: ['https://images.unsplash.com/photo-1573865526739-10659fec78a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
-                location: { country: 'Turkey', city: 'Istanbul' },
-                age: 'adult',
-                gender: 'male',
-                healthDetails: { isVaccinated: true, isNeutered: true, isDewormed: true, isHouseTrained: true, hasSpecialNeeds: false },
-                fromWhere: 'stray'
-              },
-              contactDetails: { email: 'mock@example.com', phone: '5558889900' }
-            },
-            {
-              title: 'Tiny Chihuahua',
-              details: {
-                animalType: 'dog',
-                name: 'Peanut',
-                description: 'Peanut is a tiny Chihuahua with a big personality. He loves to be carried around.',
-                breed: 'Chihuahua',
-                photos: ['https://images.unsplash.com/photo-1560807707-8cc77767d783?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
-                location: { country: 'Turkey', city: 'Ankara' },
-                age: 'senior',
-                gender: 'male',
-                healthDetails: { isVaccinated: true, isNeutered: true, isDewormed: true, isHouseTrained: true, hasSpecialNeeds: false },
-                fromWhere: 'owner'
-              },
-              contactDetails: { email: 'mock@example.com', phone: '5551239876' }
-            },
-            {
-              title: 'Friendly Hamster',
-              details: {
-                animalType: 'other',
-                name: 'Nibbles',
-                description: 'Nibbles is a friendly Syrian hamster. He is active at night and loves his wheel.',
-                breed: 'Syrian Hamster',
-                photos: ['https://images.unsplash.com/photo-1548767797-d8c844163c4c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
-                location: { country: 'Turkey', city: 'Izmir' },
-                age: 'baby',
-                gender: 'male',
-                healthDetails: { isVaccinated: false, isNeutered: false, isDewormed: false, isHouseTrained: false, hasSpecialNeeds: false },
-                fromWhere: 'other'
-              },
-              contactDetails: { email: 'mock@example.com', phone: '5554567890' }
-            },
-            {
-              title: 'Elegant Greyhound',
-              details: {
-                animalType: 'dog',
-                name: 'Flash',
-                description: 'Flash is a retired racing Greyhound looking for a couch to crash on. Very lazy indoors.',
-                breed: 'Greyhound',
-                photos: ['https://images.unsplash.com/photo-1553882951-9c3dab4a50cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
-                location: { country: 'Turkey', city: 'Istanbul' },
-                age: 'adult',
-                gender: 'male',
-                healthDetails: { isVaccinated: true, isNeutered: true, isDewormed: true, isHouseTrained: true, hasSpecialNeeds: false },
-                fromWhere: 'shelter'
-              },
-              contactDetails: { email: 'mock@example.com', phone: '5557890123' }
+                title: 'Adopt FUNYUN & SCRAT',
+                details: {
+                    animalType: 'cat',
+                    name: 'FUNYUN & SCRAT',
+                    description: 'FUNYUN & SCRAT, adoptable Cat, Young Male Domestic Short Hair, Caribou, ME, Out-of-town pet.',
+                    breed: 'Domestic Short Hair',
+                    photos: ['https://images.unsplash.com/photo-1529778873920-4da4926a72c2?w=800'], // Placeholder
+                    location: { country: 'Canada', city: 'Caribou' },
+                    age: 'baby',
+                    gender: 'male',
+                    healthDetails: { isVaccinated: true, isNeutered: true, isDewormed: true, isHouseTrained: true, hasSpecialNeeds: false },
+                    fromWhere: 'shelter'
+                },
+                contactDetails: { email: 'adopt@petfinder.mock', phone: '555-0109' }
             }
-          ];
+        ];
 
-        for (const listing of MOCK_LISTINGS) {
+        for (const listing of REAL_LISTINGS) {
             await Listing.create({
                 ...listing,
                 createdDate: Date.now(),
