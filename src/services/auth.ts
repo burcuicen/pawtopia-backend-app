@@ -91,6 +91,43 @@ class AuthService {
       throw new Error("Failed to get user from token");
     }
   }
+
+  public static async updateProfile(
+    req: IRequest,
+    updateData: {
+      firstName?: string
+      lastName?: string
+      email?: string
+      country?: string
+      city?: string
+      surveyResults?: ISurveyResult
+    }
+  ): Promise<IUser | null> {
+    try {
+      const token = req.headers.authorization?.split(" ")[1]
+      if (!token) throw new Error("No token provided")
+
+      const decodedToken = jwt.verify(token, JWT_SECRET) as { userId: string }
+
+      // Remove undefined values
+      const cleanedData = Object.fromEntries(
+        Object.entries(updateData).filter(([_, value]) => value !== undefined)
+      )
+
+      const user = await UserModel.findByIdAndUpdate(
+        decodedToken.userId,
+        cleanedData,
+        { new: true, select: '-password' }
+      )
+
+      if (!user) throw new Error("User not found")
+
+      return user
+
+    } catch (error) {
+      throw new Error("Failed to update profile")
+    }
+  }
 }
 
 export default AuthService;

@@ -95,4 +95,60 @@ router.post("/login", AuthController.login);
  */
 router.get("/user", AuthController.getUser);
 
+/**
+ * @swagger
+ * /auth/profile:
+ *   get:
+ *     security:
+ *       - Bearer: []
+ *     summary: Get current user's profile
+ *     tags: [Auth]
+ *     responses:
+ *       200:
+ *         description: The user profile
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Some server error
+ */
+router.get("/profile", AuthController.getUser);
+
+/**
+ * @swagger
+ * /auth/profile:
+ *   put:
+ *     security:
+ *       - Bearer: []
+ *     summary: Update current user's profile
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               firstName:
+ *                 type: string
+ *               lastName:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               country:
+ *                 type: string
+ *               city:
+ *                 type: string
+ *               surveyResults:
+ *                 type: object
+ *     responses:
+ *       200:
+ *         description: Profile updated successfully
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Some server error
+ */
+router.put("/profile", AuthController.updateProfile);
+
+
 export default router;
