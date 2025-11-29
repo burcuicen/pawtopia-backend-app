@@ -110,9 +110,38 @@ export class ListingController {
 
         public static async seed(req: IRequest, res: Response): Promise<void> {
             try {
-                const user = req.userJSON as IUser;
+                let user = req.userJSON as IUser;
+
+                if (!user) {
+                    const UserModel = require('../models/user').default;
+                    const AuthService = require('../services/auth').default;
+
+                    // Try to find an admin user
+                    const foundUser = await UserModel.findOne({ userType: 'paw-admin' });
+                    if (foundUser) {
+                        user = foundUser as IUser;
+                    }
+
+                    if (!user) {
+                        // Create an admin user if none exists
+                        await AuthService.register({
+                            username: "admin",
+                            email: "admin@pawtopia.com",
+                            password: "admin",
+                            firstName: "Admin",
+                            lastName: "User",
+                            userType: "paw-admin",
+                            country: "United States",
+                            city: "New York"
+                        });
+                        user = await UserModel.findOne({ username: "admin" }) as IUser;
+                    }
+                }
+
+                if (!user) throw new Error("Could not find or create user for seeding");
+
                 await ListingService.seed(user);
-                res.status(201).json({ message: 'Database seeded successfully' });
+                res.status(201).json({ message: 'Database seeded successfully', user: { username: user.username } });
             } catch (error: any) {
                 res.status(500).json({ message: error.message });
             }

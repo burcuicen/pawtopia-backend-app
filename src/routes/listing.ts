@@ -536,7 +536,7 @@ router.get("/user", getUserFromToken, ListingController.getUsersListings)
  *     security:
  *       - Bearer: []
  */
-router.get("/:id", getUserFromToken, ListingController.getById);
+router.get("/:id", getOptionalUserFromToken, ListingController.getById);
 
 /**
  * @swagger
@@ -623,7 +623,7 @@ router.post("/", getUserFromToken, ListingController.create);
  *     security:
  *       - Bearer: []
  */
-router.post("/seed", getUserFromToken, ListingController.seed);
+router.post("/seed", ListingController.seed);
 
 /**
  * @swagger
