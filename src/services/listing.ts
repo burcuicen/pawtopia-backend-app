@@ -114,6 +114,10 @@ export class ListingService {
         return await Listing.findByIdAndDelete(id).exec()
     }
 
+    public static async clear(): Promise<void> {
+        await Listing.deleteMany({});
+    }
+
     public static async seed(user: IUser): Promise<void> {
         const REAL_LISTINGS = [
             {

@@ -627,6 +627,21 @@ router.post("/seed", getUserFromToken, ListingController.seed);
 
 /**
  * @swagger
+ * /listing/clear:
+ *   delete:
+ *     summary: Clears all listings from the database
+ *     description: Deletes all listing records. Admin only.
+ *     tags: [Listing]
+ *     responses:
+ *       200:
+ *         description: Database cleared successfully.
+ *     security:
+ *       - Bearer: []
+ */
+router.delete("/clear", isAdmin, getUserFromToken, ListingController.clear);
+
+/**
+ * @swagger
  * /listing/{id}:
  *   put:
  *     summary: Updates a listing

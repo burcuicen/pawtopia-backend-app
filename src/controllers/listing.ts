@@ -117,4 +117,13 @@ export class ListingController {
                 res.status(500).json({ message: error.message });
             }
         }
+
+        public static async clear(req: IRequest, res: Response): Promise<void> {
+            try {
+                await ListingService.clear();
+                res.status(200).json({ message: 'Database cleared successfully' });
+            } catch (error: any) {
+                res.status(500).json({ message: error.message });
+            }
+        }
 }
