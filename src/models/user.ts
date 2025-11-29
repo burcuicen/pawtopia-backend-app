@@ -20,7 +20,8 @@ const UserSchema: Schema = new Schema({
     },
     country: { type: String, required: true },
     city: { type: String },
-    profilePicture: { type: String }
+    profilePicture: { type: String },
+    favorites: [{ type: Schema.Types.ObjectId, ref: 'Listing' }]
 });
 
 export default mongoose.model<IUser>("User", UserSchema);

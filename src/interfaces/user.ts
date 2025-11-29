@@ -18,6 +18,8 @@ interface IUser extends Document {
     surveyResults?: ISurveyResult
     country: string
     city: string
+    profilePicture?: string
+    favorites?: string[]
 }
 interface IUserCreateDto {
     username: string

@@ -16,5 +16,6 @@ interface IPaginatedResult<T> {
 }
 interface IRequest extends Request {
     userJSON?: IUser
+    user?: any // Using any to avoid circular dependency or strict type issues for now, or use IUser & { _id: string }
 }
 export type { IQueryParams, IPaginatedResult, IRequest }

@@ -47,4 +47,25 @@ export class UserService {
 
         return await User.findByIdAndUpdate(id, item, { new: true }).exec()
     }
+
+    public static async toggleFavorite(userId: string, listingId: string): Promise<IUser | null> {
+        const user = await User.findById(userId);
+        if (!user) return null;
+
+        const isFavorite = user.favorites?.includes(listingId as any);
+
+        if (isFavorite) {
+            user.favorites = user.favorites?.filter(id => id.toString() !== listingId);
+        } else {
+            if (!user.favorites) user.favorites = [];
+            user.favorites.push(listingId as any);
+        }
+
+        return await user.save();
+    }
+
+    public static async getFavorites(userId: string): Promise<any[]> {
+        const user = await User.findById(userId).populate('favorites').exec();
+        return user?.favorites || [];
+    }
 }

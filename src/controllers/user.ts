@@ -43,4 +43,33 @@ export  class UserController {
                 res.status(500).json({ message: error.message });
             }
         }
+
+        public static async toggleFavorite(req: IRequest, res: Response): Promise<void> {
+            try {
+                const userId = req.user?._id;
+                const { listingId } = req.params;
+                if (!userId) {
+                    res.status(401).json({ message: 'Unauthorized' });
+                    return;
+                }
+                const user = await UserService.toggleFavorite(userId, listingId);
+                res.status(200).json(user);
+            } catch (error: any) {
+                res.status(500).json({ message: error.message });
+            }
+        }
+
+        public static async getFavorites(req: IRequest, res: Response): Promise<void> {
+            try {
+                const userId = req.user?._id;
+                if (!userId) {
+                    res.status(401).json({ message: 'Unauthorized' });
+                    return;
+                }
+                const favorites = await UserService.getFavorites(userId);
+                res.status(200).json(favorites);
+            } catch (error: any) {
+                res.status(500).json({ message: error.message });
+            }
+        }
 }

@@ -134,4 +134,45 @@ router.post("/", isAdmin, getUserFromToken, UserController.create);
  */
 router.put("/:id", isAdmin, getUserFromToken, UserController.update);
 
+/**
+ * @swagger
+ * /user/favorites:
+ *   get:
+ *     summary: Get user favorites
+ *     description: Retrieve a list of favorite listings for the authenticated user.
+ *     tags: [User]
+ *     security:
+ *       - Bearer: []
+ *     responses:
+ *       200:
+ *         description: A list of favorite listings
+ *       401:
+ *         description: Unauthorized access
+ */
+router.get("/favorites/all", getUserFromToken, UserController.getFavorites);
+
+/**
+ * @swagger
+ * /user/favorites/{listingId}:
+ *   post:
+ *     summary: Toggle favorite
+ *     description: Add or remove a listing from the user's favorites.
+ *     tags: [User]
+ *     security:
+ *       - Bearer: []
+ *     parameters:
+ *       - in: path
+ *         name: listingId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of the listing to toggle
+ *     responses:
+ *       200:
+ *         description: Favorite toggled successfully
+ *       401:
+ *         description: Unauthorized access
+ */
+router.post("/favorites/:listingId", getUserFromToken, UserController.toggleFavorite);
+
 export default router;
