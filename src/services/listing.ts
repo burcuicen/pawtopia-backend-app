@@ -15,19 +15,17 @@ export class ListingService {
     public static async getAll(queryParams: IQueryParams, isAdmin: boolean = false): Promise<IPaginatedResult<IListing>> {
         const queryObject = queryBuilder(queryParams)
 
-        let query = Listing.find(queryObject.filter)
+        // Merge admin filter logic directly into the query filter
+        const finalFilter = isAdmin ? queryObject.filter : { ...queryObject.filter, isApproved: true };
 
+        // Create query with the merged filter
+        let query = Listing.find(finalFilter)
+
+        // Apply pagination and sorting
         query = query.skip(queryObject.skip).limit(queryObject.limit).sort(queryObject.sort)
 
-        // If not admin, only return approved listings
-        if (!isAdmin) {
-            query = query.find({ isApproved: true });
-        }
-
         const items = await query.exec()
-        // We need to apply the same filter for count
-        const countFilter = isAdmin ? queryObject.filter : { ...queryObject.filter, isApproved: true };
-        const totalCount = await Listing.countDocuments(countFilter)
+        const totalCount = await Listing.countDocuments(finalFilter)
 
 
         const data = {
@@ -42,14 +40,15 @@ export class ListingService {
     public static async search(queryParams: IQueryParams): Promise<IPaginatedResult<IListing>> {
         const queryObject = queryBuilder(queryParams)
 
-        let query = Listing.find(queryObject.filter)
+        // Ensure we only search approved listings
+        const finalFilter = { ...queryObject.filter, isApproved: true };
+
+        let query = Listing.find(finalFilter)
 
         query = query.skip(queryObject.skip).limit(queryObject.limit).sort(queryObject.sort)
-        //only return isApproved listings
-        query = query.find({ isApproved: true })
 
         const items = await query.exec()
-        const totalCount = await Listing.countDocuments(queryObject.filter)
+        const totalCount = await Listing.countDocuments(finalFilter)
 
 
         const data = {
@@ -64,14 +63,15 @@ export class ListingService {
     public static async getUsersListings(queryParams: IQueryParams, id: string): Promise<IPaginatedResult<IListing>> {
         const queryObject = queryBuilder(queryParams)
 
-        let query = Listing.find(queryObject.filter)
+        // Filter by user ID
+        const finalFilter = { ...queryObject.filter, createdBy: id };
+
+        let query = Listing.find(finalFilter)
 
         query = query.skip(queryObject.skip).limit(queryObject.limit).sort(queryObject.sort)
-        //only return listings created by user
-        query = query.find({ createdBy: id })
 
         const items = await query.exec()
-        const totalCount = await Listing.countDocuments(queryObject.filter)
+        const totalCount = await Listing.countDocuments(finalFilter)
 
 
         const data = {
@@ -110,7 +110,8 @@ export class ListingService {
         return await Listing.findByIdAndUpdate(id, { isApproved: true }, { new: true }).exec()
     }
     public static async reject(id: string): Promise<IListing | null> {
-        return await Listing.findByIdAndUpdate(id, { isApproved: false }, { new: true }).exec()
+        // User requested to delete the listing from DB on reject
+        return await Listing.findByIdAndDelete(id).exec()
     }
 
     public static async seed(user: IUser): Promise<void> {
