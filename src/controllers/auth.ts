@@ -19,16 +19,11 @@ class AuthController {
       res.status(201).json({ message: 'User registered successfully', user });
       
     } catch (error: any) {
-      console.error('Registration error:', error);
-      
-      // Handle duplicate key error (user already exists)
-      if (error.code === 11000) {
-        const field = Object.keys(error.keyPattern)[0];
-        res.status(409).json({ message: `${field} already exists` });
+      if (error.code === 11000 || error.message === 'User already exists') {
+        res.status(409).json({ message: 'User already exists' });
         return;
       }
-      
-      res.status(500).json({ message: error.message || 'Failed to register user' });
+      res.status(500).json({ message: error.message });
     }
   }
 

@@ -612,6 +612,21 @@ router.post("/", getUserFromToken, ListingController.create);
 
 /**
  * @swagger
+ * /listing/seed:
+ *   post:
+ *     summary: Seeds the database with mock listings
+ *     description: Creates 15 mock listing records.
+ *     tags: [Listing]
+ *     responses:
+ *       201:
+ *         description: Database seeded successfully.
+ *     security:
+ *       - Bearer: []
+ */
+router.post("/seed", getUserFromToken, ListingController.seed);
+
+/**
+ * @swagger
  * /listing/{id}:
  *   put:
  *     summary: Updates a listing

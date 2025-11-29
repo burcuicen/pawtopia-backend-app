@@ -53,9 +53,12 @@ class AuthService {
       
       await UserModel.create(data)
     
-    } catch (error) {
+    } catch (error: any) {
       console.error("Register Error:", error);
-      throw new Error("Failed to register user");
+      if (error.code === 11000) {
+        throw new Error("User already exists");
+      }
+      throw new Error(error.message || "Failed to register user");
     }
   }
 

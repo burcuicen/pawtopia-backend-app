@@ -103,4 +103,14 @@ export class ListingController {
                 res.status(500).json({ message: error.message });
             }
         }
+
+        public static async seed(req: IRequest, res: Response): Promise<void> {
+            try {
+                const user = req.userJSON as IUser;
+                await ListingService.seed(user);
+                res.status(201).json({ message: 'Database seeded successfully' });
+            } catch (error: any) {
+                res.status(500).json({ message: error.message });
+            }
+        }
 }
