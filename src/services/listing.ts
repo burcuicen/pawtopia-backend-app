@@ -84,7 +84,7 @@ export class ListingService {
         return data
     }
     public static async getById(id: string): Promise<IListing | null> {
-        return await Listing.findById(id).exec()
+        return await Listing.findById(id).populate('createdBy').exec()
     }
     public static async create(data: IListingCreateDto, userData: IUser): Promise<IListing> {
         const { title, details, contactDetails } = data
