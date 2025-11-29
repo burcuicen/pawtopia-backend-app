@@ -101,6 +101,7 @@ class AuthService {
       country?: string
       city?: string
       surveyResults?: ISurveyResult
+      profilePicture?: string
     }
   ): Promise<IUser | null> {
     try {

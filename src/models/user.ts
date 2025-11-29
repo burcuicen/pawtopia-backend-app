@@ -19,9 +19,8 @@ const UserSchema: Schema = new Schema({
         animalCareHistory: { type: Boolean },
     },
     country: { type: String, required: true },
-    city: { type: String, required: true },
+    city: { type: String },
+    profilePicture: { type: String }
 });
 
-const UserModel = mongoose.model<IUser>("User", UserSchema);
-
-export default UserModel;
+export default mongoose.model<IUser>("User", UserSchema);
