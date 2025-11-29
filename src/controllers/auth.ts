@@ -59,7 +59,7 @@ class AuthController {
 
   public static async updateProfile(req: IRequest, res: Response): Promise<void> {
     try {
-      const { firstName, lastName, email, country, city, surveyResults } = req.body;
+      const { firstName, lastName, email, country, city, surveyResults, profilePicture } = req.body;
       
       const user = await AuthService.updateProfile(req, {
         firstName,
@@ -67,7 +67,8 @@ class AuthController {
         email,
         country,
         city,
-        surveyResults
+        surveyResults,
+        profilePicture
       });
 
       res.status(200).json({ message: 'Profile updated successfully', user });
