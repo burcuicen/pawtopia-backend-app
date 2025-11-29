@@ -32,6 +32,15 @@ const listingSchema = new Schema({
     },
     isApproved: { type: Boolean, default: false }
 })
+
+// Add text index for search
+listingSchema.index({ 
+    title: 'text', 
+    'details.name': 'text', 
+    'details.breed': 'text', 
+    'details.description': 'text' 
+});
+
 const ListingModel = mongoose.model<IListing>("Listing", listingSchema);
 
 export default ListingModel;
