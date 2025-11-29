@@ -14,7 +14,11 @@ export class ListingController {
                 sort,
                 filter
             } as IQueryParams
-            const listings = await ListingService.getAll(query);
+            
+            const user = req.userJSON as IUser;
+            const isAdmin = user?.userType === 'paw-admin';
+            
+            const listings = await ListingService.getAll(query, isAdmin);
             res.status(200).json(listings);
         } catch (error: any) {
             res.status(500).json({ message: error.message });

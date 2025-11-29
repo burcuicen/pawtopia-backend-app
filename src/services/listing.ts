@@ -12,15 +12,22 @@ import { IUser } from "../interfaces/user";
 
 
 export class ListingService {
-    public static async getAll(queryParams: IQueryParams): Promise<IPaginatedResult<IListing>> {
+    public static async getAll(queryParams: IQueryParams, isAdmin: boolean = false): Promise<IPaginatedResult<IListing>> {
         const queryObject = queryBuilder(queryParams)
 
         let query = Listing.find(queryObject.filter)
 
         query = query.skip(queryObject.skip).limit(queryObject.limit).sort(queryObject.sort)
 
+        // If not admin, only return approved listings
+        if (!isAdmin) {
+            query = query.find({ isApproved: true });
+        }
+
         const items = await query.exec()
-        const totalCount = await Listing.countDocuments(queryObject.filter)
+        // We need to apply the same filter for count
+        const countFilter = isAdmin ? queryObject.filter : { ...queryObject.filter, isApproved: true };
+        const totalCount = await Listing.countDocuments(countFilter)
 
 
         const data = {

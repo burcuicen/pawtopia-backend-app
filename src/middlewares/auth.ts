@@ -41,6 +41,24 @@ export async function getUserFromToken(req:IRequest,res: Response, next: NextFun
         res.status(401).json({ message: error.message })
     }
 }
+
+export async function getOptionalUserFromToken(req: IRequest, res: Response, next: NextFunction) {
+    try {
+        const token = req.headers.authorization?.split(" ")[1];
+        if (!token) return next();
+
+        const decodedToken = jwt.verify(token, JWT_SECRET) as { userId: string };
+
+        const user = await UserModel.findById(decodedToken.userId, { password: 0 });
+        if (user) {
+            req.userJSON = user as IUser;
+        }
+        return next();
+    } catch (error) {
+        // If token is invalid or expired, just proceed without user
+        return next();
+    }
+}
 export async function isOwnerOfListing(req:IRequest,res: Response, next: NextFunction) {
     try {
         const token = req.headers.authorization?.split(" ")[1]

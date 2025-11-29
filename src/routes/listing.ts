@@ -1,6 +1,6 @@
 import express from "express"
 import { ListingController } from "../controllers/listing"
-import { isAdmin, isOwnerOfListing, getUserFromToken } from "../middlewares/auth";
+import { isAdmin, isOwnerOfListing, getUserFromToken, getOptionalUserFromToken } from "../middlewares/auth";
 
 const router = express.Router()
 
@@ -139,8 +139,8 @@ const router = express.Router()
  *     security:
  *       - Bearer: []
  */
-// Public endpoint - no auth required for browsing listings
-router.get("/", ListingController.getAll)
+// Public endpoint - no auth required for browsing listings, but we check for admin token
+router.get("/", getOptionalUserFromToken, ListingController.getAll)
 /**
  * @swagger
  * /listing/search:
